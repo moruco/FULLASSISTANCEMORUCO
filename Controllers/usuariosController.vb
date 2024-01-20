@@ -48,7 +48,7 @@ Namespace Controllers
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
             Dim usuario As usuario = db.usuario.Find(id)
-            Dim favorito As favorito = db.favorito.Find(id)
+            'Dim favorito As favorito = db.favorito.Find(id)
             If IsNothing(usuario) Then
                 Return HttpNotFound()
             End If
@@ -56,14 +56,14 @@ Namespace Controllers
             ' si tiene mostrar lista de equipos si no ir a pantalla de crear equipo
             Dim xfavorito As List(Of favorito) = db.favorito.Where(Function(e) e.idusuario = id).ToList()
             If IsNothing(xfavorito) OrElse xfavorito.Count = 0 Then
+                'no existen fav mostrar la lista para sealeccionar favoritos
                 TempData("TempIDequipo") = xfavorito
-
                 TempData("idUsuario") = id
-
                 Return RedirectToAction("Index", "Pokemon")
             End If
             If xfavorito.Count > 0 Then
-                ' If no records are found, redirect to another controller's action
+                'mostrar los favoritos desde la db
+                TempData("idUsuario") = id
                 TempData("TempdetalleFavorito") = xfavorito
                 Return RedirectToAction("Index", "Favoritoes")
             End If

@@ -8,33 +8,59 @@ Imports System.Web
 Imports System.Web.Mvc
 Imports FULLASSISTANCEMORUCO
 
-
 Public Class PokemonController
     Inherits System.Web.Mvc.Controller
     Dim idEquipo As Integer
     Dim pokemonCliente As PokemonClient
     Private db As New FULLASSISTANCEEntities1
-    'Function Index() As ActionResult
-    '    pokemonCliente = New PokemonClient
-    '    Return View(pokemonCliente.GetPokemonList(0, 20))
-    'End Function
 
     Function Index() As ActionResult
         Dim pokemonCliente = New PokemonClient
         If (TempData("TempTipoPokemon") = "Favoritos") Then
-
-
-
-
             TempData("TempTipoPokemon") = "Favoritos"
-            ''   TempData("idUsuario") = favorito.idusuario
-            Return View(pokemonCliente.GetPokemonList(0, 20))
+            'traer alista de favoritos para selecionar  los registros 
+            Dim listaFavorito = TempData("TempdetalleFavorito")
+            Dim resultadoPokemonApi = pokemonCliente.GetPokemonList(0, 20)
 
+
+
+            If IsNothing(listaFavorito) OrElse listaFavorito.Count = 0 Then
+
+
+            Else
+
+                ' Create a list to store the indices of items to be removed
+                Dim indicesToRemove As New List(Of Integer)
+                For i = 0 To resultadoPokemonApi.Results.Count - 1
+                    Dim itemREsul As Results = resultadoPokemonApi.Results(i)
+
+
+                    For Each itemFavorito As favorito In listaFavorito
+                        If itemFavorito.idpokemon.ToString().Equals(ExtraerId(itemREsul.Url)) Then
+                            ' Mark the index to be removed
+                            indicesToRemove.Add(i)
+                        End If
+
+                        TempData("idUsuario") = itemFavorito.idusuario
+                    Next
+                Next
+
+                ' Remove items in reverse order to avoid index issues
+                indicesToRemove.Reverse()
+                For Each indice In indicesToRemove
+                    resultadoPokemonApi.Results.RemoveAt(indice)
+                Next
+
+
+            End If
+
+
+
+            Return View(resultadoPokemonApi)
             ' mostrar pokemones favoritos
         Else
             ' mostrar detalle pokemones de equipo
             ' recibe el id del equipo 
-
             If TempData.ContainsKey("idEquipo") Then
                 idEquipo = TempData("idEquipo")
                 'con el id traer el detalle  y quitar los nro de poken que trajera el pokemon cliente

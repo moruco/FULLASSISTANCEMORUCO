@@ -17,33 +17,22 @@ Namespace Controllers
 
         ' GET: favoritoes
         Function Index() As ActionResult
-
-
             If TempData.ContainsKey("idUsuario") Then
-
                 id = TempData("idUsuario")
-
                 Dim usuario As usuario = db.usuario.Find(id)
-
                 If IsNothing(usuario) Then
                     Return HttpNotFound()
                 End If
                 ' preguntar en la base de datos si tiene equipos  ese usuario
                 ' si tiene mostrar lista de equipos si no ir a pantalla de crear equipo
-                Dim xfavorito As List(Of favorito) = db.favorito.Where(Function(e) e.idusuario = id).ToList()
-                If IsNothing(xfavorito) OrElse xfavorito.Count = 0 Then
-                    TempData("TempIDequipo") = xfavorito
-
-
+                Dim listaFavorito As List(Of favorito) = db.favorito.Where(Function(e) e.idusuario = id).ToList()
+                If IsNothing(listaFavorito) OrElse listaFavorito.Count = 0 Then
                     Return RedirectToAction("Index", "Pokemon")
                 End If
-                If xfavorito.Count > 0 Then
-                    ' If no records are found, redirect to another controller's action
-                    TempData("TempdetalleFavorito") = xfavorito
-                    Return View(xfavorito)
+                If listaFavorito.Count > 0 Then
+                    TempData("TempdetalleFavorito") = listaFavorito
+                    Return View(listaFavorito)
                 End If
-
-
             Else
 
             End If
@@ -64,7 +53,8 @@ Namespace Controllers
 
         ' GET: favoritoes/Create
         Function Create() As ActionResult
-            Return View()
+
+            Return RedirectToAction("Index", "Pokemon")
         End Function
 
         ' POST: favoritoes/Create
