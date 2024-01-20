@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FULLASSISTANCEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DETALLEEQUIPO">
+          <Key>
+            <PropertyRef Name="Iddetalle" />
+          </Key>
+          <Property Name="Idequipo" Type="int" />
+          <Property Name="Iddetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idpokemon" Type="int" />
+        </EntityType>
+        <EntityType Name="equipo">
+          <Key>
+            <PropertyRef Name="idequipo" />
+          </Key>
+          <Property Name="idequipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idusuario" Type="int" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="baja" Type="bit" />
+          <Property Name="fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="favorito">
+          <Key>
+            <PropertyRef Name="idfavorito" />
+          </Key>
+          <Property Name="idfavorito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idusuario" Type="int" />
+          <Property Name="idpokemon" Type="int" />
+          <Property Name="fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idusuario" />
+          </Key>
+          <Property Name="idusuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo" Type="nvarchar" MaxLength="255" />
+          <Property Name="contraseña" Type="nvarchar" MaxLength="255" />
+          <Property Name="fecha" Type="date" />
+        </EntityType>
+        <EntityContainer Name="FULLASSISTANCEModelStoreContainer">
+          <EntitySet Name="DETALLEEQUIPO" EntityType="Self.DETALLEEQUIPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="equipo" EntityType="Self.equipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="favorito" EntityType="Self.favorito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FULLASSISTANCEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DETALLEEQUIPO">
+          <Key>
+            <PropertyRef Name="Iddetalle" />
+          </Key>
+          <Property Name="Idequipo" Type="Int32" />
+          <Property Name="Iddetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idpokemon" Type="Int32" />
+        </EntityType>
+        <EntityType Name="equipo">
+          <Key>
+            <PropertyRef Name="idequipo" />
+          </Key>
+          <Property Name="idequipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idusuario" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="baja" Type="Boolean" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="favorito">
+          <Key>
+            <PropertyRef Name="idfavorito" />
+          </Key>
+          <Property Name="idfavorito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idusuario" Type="Int32" />
+          <Property Name="idpokemon" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idusuario" />
+          </Key>
+          <Property Name="idusuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="contraseña" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="FULLASSISTANCEEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DETALLEEQUIPO" EntityType="Self.DETALLEEQUIPO" />
+          <EntitySet Name="equipo" EntityType="Self.equipo" />
+          <EntitySet Name="favorito" EntityType="Self.favorito" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FULLASSISTANCEModelStoreContainer" CdmEntityContainer="FULLASSISTANCEEntities1">
+          <EntitySetMapping Name="DETALLEEQUIPO">
+            <EntityTypeMapping TypeName="FULLASSISTANCEModel.DETALLEEQUIPO">
+              <MappingFragment StoreEntitySet="DETALLEEQUIPO">
+                <ScalarProperty Name="Idequipo" ColumnName="Idequipo" />
+                <ScalarProperty Name="Iddetalle" ColumnName="Iddetalle" />
+                <ScalarProperty Name="idpokemon" ColumnName="idpokemon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="equipo">
+            <EntityTypeMapping TypeName="FULLASSISTANCEModel.equipo">
+              <MappingFragment StoreEntitySet="equipo">
+                <ScalarProperty Name="idequipo" ColumnName="idequipo" />
+                <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="baja" ColumnName="baja" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="favorito">
+            <EntityTypeMapping TypeName="FULLASSISTANCEModel.favorito">
+              <MappingFragment StoreEntitySet="favorito">
+                <ScalarProperty Name="idfavorito" ColumnName="idfavorito" />
+                <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+                <ScalarProperty Name="idpokemon" ColumnName="idpokemon" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="FULLASSISTANCEModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
