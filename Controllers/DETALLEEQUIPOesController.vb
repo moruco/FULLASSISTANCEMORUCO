@@ -16,9 +16,12 @@ Namespace Controllers
 
         ' GET: DETALLEEQUIPOes
         Function Index() As ActionResult
-
             If TempData.ContainsKey("TempDetalleEquipo") Then
                 Dim TempDetalleEquipo As List(Of DETALLEEQUIPO) = TempData("TempDetalleEquipo")
+
+
+                ' DETALLEEQUIPO = TempData("TempDetalleEquipo")
+
 
 
                 Return View(TempDetalleEquipo)
@@ -58,7 +61,20 @@ Namespace Controllers
         End Function
 
         Function Add(ByVal id As Integer?) As ActionResult
+
+            ' adicionar nuevos pokemon al detalle
             TempData("idEquipo") = id
+
+
+
+            Dim detalleEquipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = id).ToList()
+            TempData("TempDetalleEquipo") = detalleEquipo
+
+
+
+
+
+
             Return RedirectToAction("Index", "Pokemon")
         End Function
 

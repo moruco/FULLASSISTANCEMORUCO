@@ -14,74 +14,76 @@ Public Class PokemonController
     Dim pokemonCliente As PokemonClient
     Private db As New FULLASSISTANCEEntities1
 
-    Function Index() As ActionResult
+    Function Index(Optional page As Integer = 0, Optional pageSize As Integer = 20) As ActionResult
         Dim pokemonCliente = New PokemonClient
         If (TempData("TempTipoPokemon") = "Favoritos") Then
             TempData("TempTipoPokemon") = "Favoritos"
             'traer alista de favoritos para selecionar  los registros 
             Dim listaFavorito = TempData("TempdetalleFavorito")
-            Dim resultadoPokemonApi = pokemonCliente.GetPokemonList(0, 20)
-
-
+            Dim resultadoPokemonApi = pokemonCliente.GetPokemonList(page, pageSize)
 
             If IsNothing(listaFavorito) OrElse listaFavorito.Count = 0 Then
-
-
             Else
-
-                ' Create a list to store the indices of items to be removed
+                ' crear lista para borrar los indices 
                 Dim indicesToRemove As New List(Of Integer)
                 For i = 0 To resultadoPokemonApi.Results.Count - 1
                     Dim itemREsul As Results = resultadoPokemonApi.Results(i)
-
-
                     For Each itemFavorito As favorito In listaFavorito
                         If itemFavorito.idpokemon.ToString().Equals(ExtraerId(itemREsul.Url)) Then
                             ' Mark the index to be removed
                             indicesToRemove.Add(i)
                         End If
-
                         TempData("idUsuario") = itemFavorito.idusuario
                     Next
                 Next
-
                 ' Remove items in reverse order to avoid index issues
                 indicesToRemove.Reverse()
                 For Each indice In indicesToRemove
                     resultadoPokemonApi.Results.RemoveAt(indice)
                 Next
-
-
             End If
+            Return View(resultadoPokemonApi)
+            ' mostrar pokemones favoritos
+        Else
+            ' mostrar detalle pokemones de equipo  recibe el id del equipo 
+            If TempData.ContainsKey("idEquipo") Then
+                idEquipo = TempData("idEquipo")
+            End If
+            ' quitar los de la base de datos del servicio
+            TempData("idEquipo") = idEquipo
+            Dim det = TempData("TempDetalleEquipo")
+            Dim resultadoPokemonApi = pokemonCliente.GetPokemonList(page, pageSize)
+
+            Dim indicesToRemove As New List(Of Integer)
+            For i = 0 To resultadoPokemonApi.Results.Count - 1
+                Dim itemREsul As Results = resultadoPokemonApi.Results(i)
+                For Each itemDetalleEquipo As DETALLEEQUIPO In det
+                    If itemDetalleEquipo.idpokemon.ToString().Equals(ExtraerId(itemREsul.Url)) Then
+                        ' Mark the index to be removed
+                        indicesToRemove.Add(i)
+                    End If
+                    '' TempData("idUsuario") = itemDetalleEquipo.id.
+                Next
+            Next
+
+            ' Remove items in reverse order to avoid index issues
+            indicesToRemove.Reverse()
+            For Each indice In indicesToRemove
+                resultadoPokemonApi.Results.RemoveAt(indice)
+            Next
+
+
 
 
 
             Return View(resultadoPokemonApi)
-            ' mostrar pokemones favoritos
-        Else
-            ' mostrar detalle pokemones de equipo
-            ' recibe el id del equipo 
-            If TempData.ContainsKey("idEquipo") Then
-                idEquipo = TempData("idEquipo")
-                'con el id traer el detalle  y quitar los nro de poken que trajera el pokemon cliente
 
-            End If
-            TempData("idEquipo") = idEquipo
-            Return View(pokemonCliente.GetPokemonList(0, 20))
 
+            ' Return View(pokemonCliente.GetPokemonList(0, 20))
         End If
-
-
-
     End Function
 
-
-
-
     Function Create() As ActionResult
-        Console.WriteLine("")
-
-
     End Function
 
     <HttpPost>
@@ -99,8 +101,6 @@ Public Class PokemonController
                     Favorito.fecha = DateTime.Now
                     db.favorito.Add(Favorito)
                     db.SaveChanges()
-
-
                 Next
 
                 TempData("idUsuario") = Favorito.idusuario
@@ -116,7 +116,6 @@ Public Class PokemonController
 
                 Else
                     'guarda un equipo nuevo 
-
                     equipo.descripcion = "equipo malditango"
                     equipo.baja = False
                     equipo.fecha = DateTime.Now
@@ -134,10 +133,7 @@ Public Class PokemonController
                 Next
 
                 TempData("idEquipo") = idEquipo
-
-
                 Dim ldetalleequipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = idEquipo).ToList()
-
                 If IsNothing(ldetalleequipo) OrElse ldetalleequipo.Count = 0 Then
                     TempData("idEquipo") = idEquipo
                     Return RedirectToAction("Index", "Pokemon")
@@ -147,8 +143,6 @@ Public Class PokemonController
                     TempData("TempDetalleEquipo") = ldetalleequipo
                     Return RedirectToAction("Index", "DETALLEEQUIPOes")
                 End If
-
-
                 Return RedirectToAction("Index", "equipoes")
             End If
         End If
@@ -156,9 +150,7 @@ Public Class PokemonController
     End Function
 
     Function ExtraerId(pokemonUrl As String) As String
-
         Dim match = Regex.Match(pokemonUrl, "/(\d+)/$")
-
         ' Check if the match is successful
         If match.Success Then
             ' Extract the numeric part from the match

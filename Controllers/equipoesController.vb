@@ -65,19 +65,23 @@ Namespace Controllers
             '    Return HttpNotFound()
             'End If
 
+            TempData("idEquipo") = id
+
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
             'Dim detaequipo As DETALLEEQUIPO = db.DETALLEEQUIPO.Select Of(Function(e) e.Idequipo = id)
             Dim detalleEquipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = id).ToList()
+            TempData("TempDetalleEquipo") = detalleEquipo
 
             If IsNothing(detalleEquipo) OrElse detalleEquipo.Count = 0 Then
-                TempData("idEquipo") = id
+
                 Return RedirectToAction("Index", "Pokemon")
             End If
             If detalleEquipo.Count > 0 Then
                 ' If no records are found, redirect to another controller's action
                 TempData("TempDetalleEquipo") = detalleEquipo
+
                 Return RedirectToAction("Index", "DETALLEEQUIPOes")
             End If
 
