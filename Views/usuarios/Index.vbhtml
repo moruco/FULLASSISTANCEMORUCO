@@ -4,10 +4,10 @@ ViewData("Title") = "Index"
 Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Index</h2>
+<h2>Menu Usuario</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+ 
 </p>
 <table class="table">
     <tr>
@@ -35,9 +35,9 @@ End Code
             @Html.DisplayFor(Function(modelItem) item.fecha)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", New With {.id = item.idusuario}) |
-            @Html.ActionLink("Details", "Details", New With {.id = item.idusuario}) |
-            @Html.ActionLink("Delete", "Delete", New With {.id = item.idusuario})|
+            @*@Html.ActionLink("Edit", "Edit", New With {.id = item.idusuario}) |*@
+            @*@Html.ActionLink("Details", "Details", New With {.id = item.idusuario}) |*@
+            @*@Html.ActionLink("Delete", "Delete", New With {.id = item.idusuario})|*@
             @Html.ActionLink("Favoritos", "Favoritos", New With {.id = item.idusuario}) |
             @Html.ActionLink("Equipos", "Equipos", New With {.id = item.idusuario}) |
         </td>

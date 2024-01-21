@@ -7,6 +7,7 @@ Imports System.Net
 Imports System.Web
 Imports System.Web.Mvc
 Imports FULLASSISTANCEMORUCO
+Imports FULLASSISTANCEMORUCO.Controllers
 
 Public Class PokemonController
     Inherits System.Web.Mvc.Controller
@@ -142,47 +143,30 @@ Public Class PokemonController
                 End If
                 If ldetalleequipo.Count > 0 Then
 
+                    Dim tEquipo As New equipoesController()
+
                     Dim pokemonCliente = New PokemonClient
                     Dim resultadoPokemonApi As Pokemon
                     ' pegar el codigo para mostrar los ataques del mapeo
 
-
                     For Each detalleequipopokemon As DETALLEEQUIPO In ldetalleequipo
-
                         resultadoPokemonApi = pokemonCliente.GetPokemo(detalleequipopokemon.idpokemon)
                         detalleequipopokemon.nombre = resultadoPokemonApi.Nombre
                         detalleequipopokemon.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
-
                         'detalleequipopokemon.ataque = resultadoPokemonApi.Stats.
-
                         detalleequipopokemon.ataque = GetBaseStatByName(resultadoPokemonApi, "attack")
                         detalleequipopokemon.ataque_especial = GetBaseStatByName(resultadoPokemonApi, "special-attack")
-
-
                         detalleequipopokemon.defensa = GetBaseStatByName(resultadoPokemonApi, "defense")
                         detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
-
                         detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
                         detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
-
-
-
-
-
-
-
                         ' llamar servicio  para trade datos de cada pokemon
                     Next
-
-
-
-
-
                     ' muestra los pokemones que se guardaron 
                     TempData("TempDetalleEquipo") = ldetalleequipo
                     Return RedirectToAction("Index", "DETALLEEQUIPOes")
                 End If
-                Return RedirectToAction("Index", "equipoes")
+                '  Return RedirectToAction("Index", "equipoes")
             End If
         End If
 

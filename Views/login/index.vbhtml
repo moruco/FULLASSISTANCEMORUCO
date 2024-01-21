@@ -1,16 +1,15 @@
 ﻿@ModelType FULLASSISTANCEMORUCO.login
 
 @Code
-    ViewData("Title") = "Create"
+    ViewData("Title") = "LOGIN"
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Agregar</h2>
 @Using (Html.BeginForm())
     @Html.AntiForgeryToken()
 
     @<div class="form-horizontal">
-        <h4>Usuario</h4>
+        <h4>LOGIN</h4>
         <hr />
         @Html.ValidationSummary(True, "", New With {.class = "text-danger"})
         <div class="form-group">
@@ -37,5 +36,5 @@ End Code
     </div>  End Using
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+  
 </div>

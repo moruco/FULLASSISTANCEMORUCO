@@ -32,25 +32,13 @@ Namespace Controllers
                 resultadoPokemonApi = pokemonCliente.GetPokemo(detalleequipopokemon.idpokemon)
                 detalleequipopokemon.nombre = resultadoPokemonApi.Nombre
                 detalleequipopokemon.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
-
                 'detalleequipopokemon.ataque = resultadoPokemonApi.Stats.
-
                 detalleequipopokemon.ataque = GetBaseStatByName(resultadoPokemonApi, "attack")
                 detalleequipopokemon.ataque_especial = GetBaseStatByName(resultadoPokemonApi, "special-attack")
-
-
                 detalleequipopokemon.defensa = GetBaseStatByName(resultadoPokemonApi, "defense")
                 detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
-
                 detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
                 detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
-
-
-
-
-
-
-
                 ' llamar servicio  para trade datos de cada pokemon
             Next
             If IsNothing(detalleEquipo) OrElse detalleEquipo.Count = 0 Then

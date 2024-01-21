@@ -129,7 +129,57 @@ Namespace Controllers
             Dim dETALLEEQUIPO As DETALLEEQUIPO = db.DETALLEEQUIPO.Find(id)
             db.DETALLEEQUIPO.Remove(dETALLEEQUIPO)
             db.SaveChanges()
+
+
+            id = TempData("idEquipo")
+
+
+            'Dim detaequipo As DETALLEEQUIPO = db.DETALLEEQUIPO.Select Of(Function(e) e.Idequipo = id)
+            Dim detalleEquipoa As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = id).ToList()
+            'llarmar api para cargar prop adicionales 
+            Dim pokemonCliente = New PokemonClient
+            Dim resultadoPokemonApi As Pokemon
+            For Each detalleequipopokemon As DETALLEEQUIPO In detalleEquipoa
+                resultadoPokemonApi = pokemonCliente.GetPokemo(detalleequipopokemon.idpokemon)
+                detalleequipopokemon.nombre = resultadoPokemonApi.Nombre
+                detalleequipopokemon.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
+                'detalleequipopokemon.ataque = resultadoPokemonApi.Stats.
+                detalleequipopokemon.ataque = GetBaseStatByName(resultadoPokemonApi, "attack")
+                detalleequipopokemon.ataque_especial = GetBaseStatByName(resultadoPokemonApi, "special-attack")
+                detalleequipopokemon.defensa = GetBaseStatByName(resultadoPokemonApi, "defense")
+                detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
+                detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
+                detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
+                ' llamar servicio  para trade datos de cada pokemon
+            Next
+
+            ' llenar los atackes  y defensas
+
+
+
+
+            TempData("TempDetalleEquipo") = detalleEquipoa
             Return RedirectToAction("Index")
+        End Function
+
+        Function GetBaseStatByName(pokemon As Pokemon, statName As String) As Integer
+            ' Convert the stat name to lowercase for case-insensitive comparison
+            Dim targetStatName As String = statName.ToLower()
+
+            ' Loop through each stat in the Pokemon's stats
+            For Each stat In pokemon.Stats
+                ' Convert the current stat name to lowercase for case-insensitive comparison
+                Dim currentStatName As String = stat.StatInfo.Name.ToLower()
+
+                ' Check if the current stat name matches the target stat name
+                If currentStatName = targetStatName Then
+                    ' Return the base stat if a match is found
+                    Return stat.BaseStat
+                End If
+            Next
+
+            ' If no match is found, return a default value
+            Return 0
         End Function
 
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)

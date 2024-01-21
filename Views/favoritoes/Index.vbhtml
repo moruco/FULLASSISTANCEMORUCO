@@ -35,7 +35,7 @@ End Code
             @Html.DisplayFor(Function(modelItem) item.fecha)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", New With {.id = item.idfavorito }) |
+            @*@Html.ActionLink("Edit", "Edit", New With {.id = item.idfavorito }) |*@
             @Html.ActionLink("Details", "Details", New With {.id = item.idfavorito }) |
             @Html.ActionLink("Delete", "Delete", New With {.id = item.idfavorito })
         </td>

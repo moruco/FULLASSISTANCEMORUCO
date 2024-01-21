@@ -32,8 +32,8 @@ End Code
         @Html.AntiForgeryToken()
 
         @<div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Confirmar Elmiminacion" class="btn btn-default" /> |
+            @*@Html.ActionLink("Back to List", "Index")*@
         </div>
     End Using
 </div>

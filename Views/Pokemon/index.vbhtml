@@ -29,52 +29,53 @@ End Code
 @Using (Html.BeginForm(FormMethod.Post))
 
 
-@<div class="form-actions no-color">
-    <input type="submit" value="Create" class="btn btn-default" />
+    @<div class="form-actions no-color">
+        <input type="submit" value="Create" class="btn btn-default" />
 
 
-    <Table Class="table">
-        <tr>
-            <th>
-                Nombre Pokemon
-            </th>
-            <th>
-            </th>
-            <th>
-                <input type="checkbox" id="selectAll" />
-            </th>
-            <th></th>
-        </tr>
-        @Code
-            For Each result In Model.Results
-                @<tr>
-                    <td>
-                        @Html.DisplayFor(Function(model) result.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(Function(model) result.Url)
-                    </td>
-                    <td>
-                        <input type="checkbox" name="selectedPokemons" class="pokemonCheckbox" value="@result.Url" />
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            Next
-        End Code
-    </Table>
-   
-    <ul class="pagination">
-        @Code 
+        <Table Class="table">
+            <tr>
+                <th>
+                    Nombre Pokemon
+                </th>
+                <th>
+                </th>
+                <th>
+                    <input type="checkbox" id="selectAll" />
+                </th>
+                <th></th>
+            </tr>
+            @Code
+                For Each result In Model.Results
+                    @<tr>
+                        <td>
+                            @Html.DisplayFor(Function(model) result.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(Function(model) result.Url)
+                        </td>
+                        <td>
+                            <input type="checkbox" name="selectedPokemons" class="pokemonCheckbox" value="@result.Url" />
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                Next
+            End Code
+        </Table>
+
+        <ul class="pagination">
+            @Code
                 For p = 1 To totalPages
-        @<li Class="@(If(p = page, "active", ""))"> 
-    @Html.ActionLink(p.ToString(), "Index", New With {.page = p})   </li>
-            Next
-        End Code
-    </ul>
+                    @<li Class="@(If(p = page, "active", ""))">
+                        @Html.ActionLink(p.ToString(), "Index", New With {.page = p})
+                    </li>
+                Next
+            End Code
+        </ul>
 
-</div>
-End Using
+    </div>
+                End Using
 
 
 @section Scripts {
@@ -93,4 +94,31 @@ End Using
     </script>
     }
 
+    <script>
+        $(document).ready(function () {
+            $("#selectAll").click(function () {
+                $(".pokemonCheckbox").prop('checked', $(this).prop('checked'));
+            });
+
+            $(".pokemonCheckbox").click(function () {
+                // UpdateHiddenFields function if needed
+            });
+
+            $("form").submit(function () {
+                // Disable the submit button
+                $("input[type='submit']").prop('disabled', true);
+
+                // Show loading animation (you can customize this part)
+                $("input[type='submit']").after('<div class="loading-animation">Loading...</div>');
+
+                // Allow the default form submission after a short delay (simulate loading)
+                setTimeout(function () {
+                    $("form").unbind('submit').submit();
+                }, 2000); // Adjust the delay time according to your needs
+                return false; // Prevent the default form submission
+            });
+        });
+    </script>
+
 end section
+

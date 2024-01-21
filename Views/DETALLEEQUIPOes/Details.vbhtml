@@ -4,10 +4,10 @@
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Details</h2>
+<h2>Detalle Equipo</h2>
 
 <div>
-    <h4>DETALLEEQUIPO</h4>
+    <h4>Detalle del Equipo</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
