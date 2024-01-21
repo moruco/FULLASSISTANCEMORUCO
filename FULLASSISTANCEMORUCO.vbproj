@@ -197,7 +197,6 @@
     <Compile Include="Models\PokeApiResponse.vb" />
     <Compile Include="Models\Pokemon.vb" />
     <Compile Include="Models\Results.vb" />
-    <Compile Include="Models\Stat.vb" />
     <Compile Include="Models\usuario.vb">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

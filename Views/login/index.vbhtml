@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Create</h2>
+<h2>Agregar</h2>
 @Using (Html.BeginForm())
     @Html.AntiForgeryToken()
 

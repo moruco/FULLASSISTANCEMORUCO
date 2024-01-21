@@ -2,17 +2,94 @@
 Imports System.Collections.Generic
 Imports System.Data
 Imports System.Data.Entity
+Imports System.Drawing.Printing
 Imports System.Linq
 Imports System.Net
 Imports System.Web
 Imports System.Web.Mvc
 Imports FULLASSISTANCEMORUCO
+Imports Microsoft.Ajax.Utilities
 
 Namespace Controllers
     Public Class equipoesController
         Inherits System.Web.Mvc.Controller
 
         Private db As New FULLASSISTANCEEntities1
+
+
+        ' GET: equipoes/Details/5
+        Function Details(ByVal id As Integer?) As ActionResult
+            TempData("idEquipo") = id
+            If IsNothing(id) Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+            'Dim detaequipo As DETALLEEQUIPO = db.DETALLEEQUIPO.Select Of(Function(e) e.Idequipo = id)
+            Dim detalleEquipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = id).ToList()
+            'llarmar api para cargar prop adicionales 
+            Dim pokemonCliente = New PokemonClient
+            Dim resultadoPokemonApi As Pokemon
+            For Each detalleequipopokemon As DETALLEEQUIPO In detalleEquipo
+                resultadoPokemonApi = pokemonCliente.GetPokemo(detalleequipopokemon.idpokemon)
+                detalleequipopokemon.nombre = resultadoPokemonApi.Nombre
+                detalleequipopokemon.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
+
+                'detalleequipopokemon.ataque = resultadoPokemonApi.Stats.
+
+                detalleequipopokemon.ataque = GetBaseStatByName(resultadoPokemonApi, "attack")
+                detalleequipopokemon.ataque_especial = GetBaseStatByName(resultadoPokemonApi, "special-attack")
+
+
+                detalleequipopokemon.defensa = GetBaseStatByName(resultadoPokemonApi, "defense")
+                detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
+
+                detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
+                detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
+
+
+
+
+
+
+
+                ' llamar servicio  para trade datos de cada pokemon
+            Next
+            If IsNothing(detalleEquipo) OrElse detalleEquipo.Count = 0 Then
+                Return RedirectToAction("Index", "Pokemon")
+            End If
+            If detalleEquipo.Count > 0 Then
+                ' If no records are found, redirect to another controller's action
+                TempData("TempDetalleEquipo") = detalleEquipo
+
+                Return RedirectToAction("Index", "DETALLEEQUIPOes")
+            End If
+
+
+        End Function
+
+
+        'Dim attackBaseStat As Integer = GetBaseStatByName(Pokemon, "attack")
+
+        ' Hacer ESPA:OL INMDIO
+        Function GetBaseStatByName(pokemon As Pokemon, statName As String) As Integer
+            ' Convert the stat name to lowercase for case-insensitive comparison
+            Dim targetStatName As String = statName.ToLower()
+
+            ' Loop through each stat in the Pokemon's stats
+            For Each stat In pokemon.Stats
+                ' Convert the current stat name to lowercase for case-insensitive comparison
+                Dim currentStatName As String = stat.StatInfo.Name.ToLower()
+
+                ' Check if the current stat name matches the target stat name
+                If currentStatName = targetStatName Then
+                    ' Return the base stat if a match is found
+                    Return stat.BaseStat
+                End If
+            Next
+
+            ' If no match is found, return a default value
+            Return 0
+        End Function
+
 
         ' GET: equipoes/Create
         Function Create() As ActionResult
@@ -34,59 +111,8 @@ Namespace Controllers
                 Return View(Me)
             End If
 
-
-
-
-
-            'If TempData.ContainsKey("TempEquipo") Then
-            '    Dim TempEquipo As List(Of equipo) = TempData("TempEquipo")
-
-            '    ' Your logic with tempDetaequipoList
-            '    Return View(TempEquipo)
-            'Else
-            '    'TempData("idusuario") = id
-
-            '    ''                Return View(TempEquipo)
-
-
-            '    ''Return RedirectToAction("Index", "equipoes")
-            'End If
-
         End Function
 
-        ' GET: equipoes/Details/5
-        Function Details(ByVal id As Integer?) As ActionResult
-            'Dim detaequipo As New DETALLEEQUIPO()
-            'If IsNothing(id) Then
-            '    Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-            'End If
-            'Dim equipo As equipo = db.equipo.Find(id)
-            'If IsNothing(equipo) Then
-            '    Return HttpNotFound()
-            'End If
-
-            TempData("idEquipo") = id
-
-            If IsNothing(id) Then
-                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-            End If
-            'Dim detaequipo As DETALLEEQUIPO = db.DETALLEEQUIPO.Select Of(Function(e) e.Idequipo = id)
-            Dim detalleEquipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = id).ToList()
-            TempData("TempDetalleEquipo") = detalleEquipo
-
-            If IsNothing(detalleEquipo) OrElse detalleEquipo.Count = 0 Then
-
-                Return RedirectToAction("Index", "Pokemon")
-            End If
-            If detalleEquipo.Count > 0 Then
-                ' If no records are found, redirect to another controller's action
-                TempData("TempDetalleEquipo") = detalleEquipo
-
-                Return RedirectToAction("Index", "DETALLEEQUIPOes")
-            End If
-
-
-        End Function
 
 
 

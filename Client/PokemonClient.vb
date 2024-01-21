@@ -28,7 +28,9 @@ Public Class PokemonClient
 
 
     Public Function GetPokemo(pokemonurl As String) As Pokemon
-        Dim apiUrl As String = pokemonurl
+        'Dim apiUrl As String = pokemonurl
+
+        Dim apiUrl As String = baseUrl + "/" + pokemonurl
 
         Using httpClient As New HttpClient()
             ' Send the GET request
