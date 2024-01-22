@@ -47,7 +47,7 @@ End Code
                         @Html.DisplayFor(Function(modelItem) item.fecha)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", New With {.id = item.idequipo}, New With {.class = "btn btn-primary"})
+                        @Html.ActionLink("Editar", "Edit", New With {.id = item.idequipo}, New With {.class = "btn btn-primary"})
                         @If item.baja Then
                         Else
                             @Html.ActionLink("Detalle", "Details", New With {.id = item.idequipo}, New With {.onclick = "showLoadingMessage();", .class = "btn btn-primary"})

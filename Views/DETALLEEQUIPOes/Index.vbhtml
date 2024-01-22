@@ -1,7 +1,7 @@
 ﻿@ModelType IEnumerable(Of FULLASSISTANCEMORUCO.DETALLEEQUIPO)
 @Code
-ViewData("Title") = "Index"
-Layout = "~/Views/Shared/_Layout.vbhtml"
+    ViewData("Title") = "Index"
+    Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
 <h2>Detalle del equipo Pokemon</h2>
@@ -10,7 +10,7 @@ End Code
     @*@Html.ActionLink("Adicionar", "Create")*@
 
 
-    
+
 
     <a href="@Url.Action("Volver")" class="btn btn-primary">Volver</a>
 
@@ -18,6 +18,7 @@ End Code
 </p>
 <table class="table">
     <tr>
+
         <th>
             @Html.DisplayNameFor(Function(model) model.Idequipo)
         </th>
@@ -26,6 +27,9 @@ End Code
         </th>
         <th>
             @Html.DisplayNameFor(Function(model) model.nombre)
+        </th>
+        <th>
+            Imagen
         </th>
         <th>
             @Html.DisplayNameFor(Function(model) model.ataque)
@@ -51,8 +55,10 @@ End Code
         <th></th>
     </tr>
 
-@For Each item In Model
-    @<tr>
+    @For Each item In Model
+        @<tr>
+
+
     <td>
         @Html.DisplayFor(Function(modelItem) item.Idequipo)
     </td>
@@ -61,6 +67,8 @@ End Code
     </td>
     <td>
         @Html.DisplayFor(Function(modelItem) item.nombre)
+    </td>
+    <td>
         <img src="@Html.DisplayFor(Function(modelItem) item.imagen)" alt="Imagen del Pokémon" />
     </td>
     <td>
@@ -77,7 +85,7 @@ End Code
     </td>
     <td>
         @Html.DisplayFor(Function(modelItem) item.tipo)
-        
+
     </td>
     <td>
         @Html.DisplayFor(Function(modelItem) item.puntovida)
@@ -86,13 +94,13 @@ End Code
         @Html.DisplayFor(Function(modelItem) item.velocidad)
     </td>
     <td>
-   
-        @Html.ActionLink("Agregar", "Add", New With {.id = item.Idequipo}, New With {.class = "btn btn-primary"}) 
+
+        @Html.ActionLink("Agregar", "Add", New With {.id = item.Idequipo}, New With {.class = "btn btn-primary"})
         @Html.ActionLink("Quitar", "Delete", New With {.id = item.Iddetalle}, New With {.class = "btn btn-primary"})
 
-        
+
     </td>
 </tr>
-Next
+    Next
 
 </table>

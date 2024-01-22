@@ -6,7 +6,7 @@ End Code
 
 <h3>¿Esta seguro de eliminar?</h3>
 <div>
-    <h4>DETALLEEQUIPO</h4>
+    <h4></h4>
     @Using (Html.BeginForm(FormMethod.Post))
         @Html.AntiForgeryToken()
         @<div class="form-actions no-color">

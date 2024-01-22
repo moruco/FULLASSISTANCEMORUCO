@@ -31,7 +31,7 @@ End Code
                 </dd>
 
             </dl>
-            <input type="submit" value="Confirmar Elmiminacion" class="btn btn-primary" />
+            <input type="submit" value="Confirmar Eliminacion" class="btn btn-primary" />
         </div>
     End Using
 </div>

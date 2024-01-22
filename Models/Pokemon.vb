@@ -32,7 +32,7 @@ End Class
 
 
 Public Class Sprites
-    <JsonProperty("back_default")>
+    <JsonProperty("front_default")>
     Public Property BackDefault As String
 End Class
 Public Class PokemonType
