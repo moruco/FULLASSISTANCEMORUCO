@@ -33,6 +33,7 @@ End Code
                 <input type="submit" value="Login" class="btn btn-primary" />
 
 
+                <a href="@Url.Action("Nuevo")" class="btn btn-primary">Registrarse</a>
 
             </div>
         </div>

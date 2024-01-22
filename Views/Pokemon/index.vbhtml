@@ -31,8 +31,17 @@ End Code
                             @Html.DisplayFor(Function(model) result.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(Function(model) result.Url)
+                            @*@Html.DisplayFor(Function(model) result.Url)*@
+
+                            @Html.EditorFor(Function(model) result.Url, New With {.htmlAttributes = New With {.readonly = "readonly", .style = "display: none;"}})
                         </td>
+
+                        <td>
+
+                            <img src="@Html.DisplayFor(Function(model) result.imagen)" alt="Imagen del Pokémon" />
+
+                        </td>
+
                         <td>
                             <input type="checkbox" name="selectedPokemons" class="pokemonCheckbox" value="@result.Url" />
                         </td>
