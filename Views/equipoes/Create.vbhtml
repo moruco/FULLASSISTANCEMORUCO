@@ -13,13 +13,16 @@ End Code
         <h4>equipo</h4>
         <hr />
         @Html.ValidationSummary(True, "", New With {.class = "text-danger"})
-        <div class="form-group">
-            @Html.LabelFor(Function(model) model.idusuario, htmlAttributes:=New With {.class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.idusuario, New With {.htmlAttributes = New With {.readonly = "readonly"}})
-                @Html.ValidationMessageFor(Function(model) model.idusuario, "", New With {.class = "text-danger"})
-            </div>
-        </div>
+     <div class="form-group">
+
+         @Html.LabelFor(Function(model) model.idusuario, htmlAttributes:=New With {.class = "control-label col-md-2", .style = "display: none;"})
+         @*@Html.LabelFor(Function(model) model.idusuario, htmlAttributes:=New With {.class = "control-label col-md-2"})*@
+         <div class="col-md-10">
+             @Html.EditorFor(Function(model) model.idusuario, New With {.htmlAttributes = New With {.readonly = "readonly", .style = "display: none;"}})
+             @*@Html.EditorFor(Function(model) model.idusuario, New With {.htmlAttributes = New With {.readonly = "readonly"}, .style = "display: none;"})*@
+             @Html.ValidationMessageFor(Function(model) model.idusuario, "", New With {.class = "text-danger"})
+         </div>
+     </div>
 
         <div class="form-group">
             @Html.LabelFor(Function(model) model.descripcion, htmlAttributes:=New With {.class = "control-label col-md-2"})
@@ -69,8 +72,7 @@ End Code
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </div>
-    </div>
-End Using
+    </div>  End Using
 
 <div>
 

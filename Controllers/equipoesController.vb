@@ -13,9 +13,11 @@ Imports Microsoft.Ajax.Utilities
 Namespace Controllers
     Public Class equipoesController
         Inherits System.Web.Mvc.Controller
-
         Private db As New FULLASSISTANCEEntities1
 
+        Public Function Volver() As ActionResult
+            Return RedirectToAction("Index", "usuarios")
+        End Function
 
         ' GET: equipoes/Details/5
         Function Details(ByVal id As Integer?) As ActionResult
@@ -39,6 +41,7 @@ Namespace Controllers
                 detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
                 detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
                 detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
+                detalleequipopokemon.imagen = resultadoPokemonApi.SpritesData.BackDefault
                 ' llamar servicio  para trade datos de cada pokemon
             Next
             If IsNothing(detalleEquipo) OrElse detalleEquipo.Count = 0 Then

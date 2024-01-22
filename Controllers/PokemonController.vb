@@ -65,6 +65,8 @@ Public Class PokemonController
                 For i = 0 To resultadoPokemonApi.Results.Count - 1
                     Dim itemREsul As Results = resultadoPokemonApi.Results(i)
                     For Each itemDetalleEquipo As DETALLEEQUIPO In det
+
+
                         If itemDetalleEquipo.idpokemon.ToString().Equals(ExtraerId(itemREsul.Url)) Then
                             ' Mark the index to be removed
                             indicesToRemove.Add(i)
@@ -72,6 +74,12 @@ Public Class PokemonController
                         '' TempData("idUsuario") = itemDetalleEquipo.id.
                     Next
                 Next
+                '''''''''''''' aqui poner la imagen
+
+
+
+                '''
+
 
                 ' Remove items in reverse order to avoid index issues
                 indicesToRemove.Reverse()
@@ -79,6 +87,9 @@ Public Class PokemonController
                     resultadoPokemonApi.Results.RemoveAt(indice)
                 Next
             End If
+
+
+
 
             Return View(resultadoPokemonApi)
 
@@ -172,6 +183,12 @@ Public Class PokemonController
                             detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
                             detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
                             detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
+
+                            'detalleequipopokemon.imagen = GetBaseStatByName(resultadoPokemonApi, "back_default")
+
+                            detalleequipopokemon.imagen = resultadoPokemonApi.SpritesData.BackDefault
+
+
                             ' llamar servicio  para trade datos de cada pokemon
                         Next
                         ' muestra los pokemones que se guardaron 

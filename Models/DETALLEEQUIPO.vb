@@ -25,4 +25,7 @@ Partial Public Class DETALLEEQUIPO
     Public Property defensa_especial As String
     Public Property puntovida As String
     Public Property velocidad As String
+
+    Public Property imagen As String
+
 End Class

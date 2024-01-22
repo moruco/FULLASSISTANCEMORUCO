@@ -4,7 +4,7 @@ ViewData("Title") = "Index"
 Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Detalle del esquipo Pokemon</h2>
+<h2>Detalle del equipo Pokemon</h2>
 
 <p>
     @*@Html.ActionLink("Adicionar", "Create")*@
@@ -61,6 +61,7 @@ End Code
     </td>
     <td>
         @Html.DisplayFor(Function(modelItem) item.nombre)
+        <img src="@Html.DisplayFor(Function(modelItem) item.imagen)" alt="Imagen del Pokémon" />
     </td>
     <td>
         @Html.DisplayFor(Function(modelItem) item.ataque)
@@ -76,6 +77,7 @@ End Code
     </td>
     <td>
         @Html.DisplayFor(Function(modelItem) item.tipo)
+        
     </td>
     <td>
         @Html.DisplayFor(Function(modelItem) item.puntovida)

@@ -18,7 +18,6 @@ Namespace Controllers
         ' GET: favoritoes
         Public Function Volver() As ActionResult
             Return RedirectToAction("Index", "usuarios")
-
         End Function
         Function Index() As ActionResult
             If TempData.ContainsKey("idUsuario") Then
@@ -35,6 +34,42 @@ Namespace Controllers
                 End If
                 If listaFavorito.Count > 0 Then
 
+                    ' poner imagen del pokemon
+                    For Each favoritoItem As favorito In listaFavorito
+                        Dim pokemonCliente = New PokemonClient
+                        Dim resultadoPokemonApi As Pokemon
+                        resultadoPokemonApi = pokemonCliente.GetPokemo(favoritoItem.idpokemon)
+
+                        favoritoItem.imagen = resultadoPokemonApi.SpritesData.BackDefault
+
+
+
+
+
+                        favoritoItem.nombre = resultadoPokemonApi.Nombre
+                        favoritoItem.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
+                        favoritoItem.ataque = Getvalor(resultadoPokemonApi, "attack")
+                        favoritoItem.ataque_especial = Getvalor(resultadoPokemonApi, "special-attack")
+                        favoritoItem.defensa = Getvalor(resultadoPokemonApi, "defense")
+                        favoritoItem.defensa_especial = Getvalor(resultadoPokemonApi, "special-defense")
+                        favoritoItem.puntovida = Getvalor(resultadoPokemonApi, "hp")
+                        favoritoItem.velocidad = Getvalor(resultadoPokemonApi, "speed")
+
+
+
+                        ' llamar servicio  para trade datos de cada pokemon
+
+
+
+                        ' Aquí puedes acceder a las propiedades de cada elemento en el bucle
+                        ' Ejemplo: favoritoItem.Propiedad
+
+                        ' Puedes realizar acciones específicas con cada elemento dentro del bucle
+                        ' ...
+
+                    Next
+
+
                     TempData("idUsuario") = id
                     TempData("TempdetalleFavorito") = listaFavorito
                     Return View(listaFavorito)
@@ -43,6 +78,17 @@ Namespace Controllers
 
             End If
 
+        End Function
+
+        Function Getvalor(pokemon As Pokemon, statName As String) As Integer
+            Dim targetStatName As String = statName.ToLower()
+            For Each stat In pokemon.Stats
+                Dim currentStatName As String = stat.StatInfo.Name.ToLower()
+                If currentStatName = targetStatName Then
+                    Return stat.BaseStat
+                End If
+            Next
+            Return 0
         End Function
 
         ' GET: favoritoes/Details/5

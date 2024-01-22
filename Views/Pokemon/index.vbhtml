@@ -11,11 +11,7 @@ End Code
 @Using (Html.BeginForm(FormMethod.Post))
     @<div class="form-actions no-color">
 
-        <input type="submit" value="Crear" class="btn btn-primary" />
-
-
-
-
+        <input type="submit" value="Adicionar pokemones seleccionados" class="btn btn-primary" />
         <Table Class="table">
             <tr>
                 <th>
@@ -46,22 +42,20 @@ End Code
                 Next
             End Code
         </Table>
-
         <ul class="pagination">
             Paginas
             @Code
                 For p = 1 To totalPages
                     @<li Class="@(If(p = page, "active", ""))">
-                         @Html.ActionLink(p.ToString(), "Index", New With {.page = p})
+                        @Html.ActionLink(p.ToString(), "Index", New With {.page = p})
                     </li>
                 Next
             End Code
         </ul>
-
     </div>
 End Using
-
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -77,28 +71,7 @@ End Using
         });
     </script>
     }
-
     <script>
-        //$(document).ready(function () {
-        //    $("#selectAll").click(function () {
-        //        $(".pokemonCheckbox").prop('checked', $(this).prop('checked'));
-        //    });
-
-        //    $(".pokemonCheckbox").click(function () {
-        //    });
-
-        //    $("form").submit(function () {
-        //        $("input[type='submit']").prop('disabled', true);
-
-        //        $("input[type='submit']").after('<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Cargando..." width="100" height="100" />');
-
-
-        //        setTimeout(function () {
-        //            $("form").unbind('submit').submit();
-        //        }, 2000);
-        //        return false;
-        //    });
-        //});
         $(document).ready(function () {
             $("#selectAll").click(function () {
                 $(".pokemonCheckbox").prop('checked', $(this).prop('checked'));
@@ -113,7 +86,6 @@ End Using
                     alert("Por favor, selecciona al menos un Pokémon.");
                     return false; // Detener el envío del formulario
                 }
-
                 $("input[type='submit']").prop('disabled', true);
                 $("input[type='submit']").after('<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Cargando..." width="100" height="100" />');
 
@@ -123,13 +95,9 @@ End Using
                 return false;
             });
         });
-
     </script>
-
-
-
-
 end section
+
 <style>
     #loadingOverlay {
         display: none;

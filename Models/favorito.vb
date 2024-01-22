@@ -14,6 +14,22 @@ Partial Public Class favorito
     Public Property idfavorito As Integer
     Public Property idusuario As Nullable(Of Integer)
     Public Property idpokemon As Nullable(Of Integer)
+
+
+
     Public Property fecha As Nullable(Of Date)
+    'propiedades adicionales 
+    Public Property nombre As String
+    Public Property tipo As String
+
+    Public Property ataque As String
+    Public Property ataque_especial As String
+    Public Property defensa As String
+    Public Property defensa_especial As String
+    Public Property puntovida As String
+    Public Property velocidad As String
+
+    Public Property imagen As String
+
 
 End Class

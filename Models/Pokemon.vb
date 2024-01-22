@@ -13,6 +13,10 @@ Public Class Pokemon
     <JsonProperty("types")>
     Public Property Types As List(Of PokemonType)
 
+    <JsonProperty("sprites")>
+    Public Property SpritesData As Sprites
+
+
     ' Constructor
     Public Sub New()
         ' Default constructor
@@ -26,6 +30,11 @@ Public Class Pokemon
     'End Sub
 End Class
 
+
+Public Class Sprites
+    <JsonProperty("back_default")>
+    Public Property BackDefault As String
+End Class
 Public Class PokemonType
     <JsonProperty("slot")>
     Public Property Slot As Integer

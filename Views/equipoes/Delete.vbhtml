@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Delete</h2>
+<h2></h2>
 
 <h3>¿Esta seguro de eliminar?</h3>
 <div>
@@ -49,7 +49,7 @@ End Code
 
         @<div class="form-actions no-color">
             <input type="submit" value="Delete" class= "btn btn-primary" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Volver", "Index")
         </div>
     End Using
 </div>
