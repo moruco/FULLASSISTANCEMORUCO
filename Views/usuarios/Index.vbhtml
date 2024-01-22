@@ -22,7 +22,7 @@ End Code
                     @Html.DisplayNameFor(Function(model) model.contraseña)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(Function(model) model.fecha)
+                    @*@Html.DisplayNameFor(Function(model) model.fecha)*@
                 </th>
                 <th></th>
             </tr>
@@ -36,7 +36,9 @@ End Code
                         <input type="password" value="@Html.DisplayFor(Function(modelItem) item.contraseña)" readonly />
                     </td>
                     <td>
-                        @Html.DisplayFor(Function(modelItem) item.fecha)
+
+                       
+                        @*@Html.DisplayFor(Function(modelItem) item.fecha)*@
                     </td>
                     <td>
                         @*@Html.ActionLink("Edit", "Edit", New With {.id = item.idusuario}) |*@

@@ -39,13 +39,7 @@ Namespace Controllers
                         Dim pokemonCliente = New PokemonClient
                         Dim resultadoPokemonApi As Pokemon
                         resultadoPokemonApi = pokemonCliente.GetPokemo(favoritoItem.idpokemon)
-
                         favoritoItem.imagen = resultadoPokemonApi.SpritesData.BackDefault
-
-
-
-
-
                         favoritoItem.nombre = resultadoPokemonApi.Nombre
                         favoritoItem.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
                         favoritoItem.ataque = Getvalor(resultadoPokemonApi, "attack")
@@ -54,21 +48,13 @@ Namespace Controllers
                         favoritoItem.defensa_especial = Getvalor(resultadoPokemonApi, "special-defense")
                         favoritoItem.puntovida = Getvalor(resultadoPokemonApi, "hp")
                         favoritoItem.velocidad = Getvalor(resultadoPokemonApi, "speed")
-
-
-
                         ' llamar servicio  para trade datos de cada pokemon
-
-
-
                         ' Aquí puedes acceder a las propiedades de cada elemento en el bucle
                         ' Ejemplo: favoritoItem.Propiedad
-
+                        ' Puedes realizar acciones específicas con cada elemento dentro del bucle
                         ' Puedes realizar acciones específicas con cada elemento dentro del bucle
                         ' ...
-
                     Next
-
 
                     TempData("idUsuario") = id
                     TempData("TempdetalleFavorito") = listaFavorito

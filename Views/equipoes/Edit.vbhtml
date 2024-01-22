@@ -53,13 +53,13 @@ End Code
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(Function(model) model.fecha, htmlAttributes:=New With {.class = "control-label col-md-2"})
         <div class="col-md-10">
             @Html.EditorFor(Function(model) model.fecha, New With {.htmlAttributes = New With {.class = "form-control"}})
             @Html.ValidationMessageFor(Function(model) model.fecha, "", New With {.class = "text-danger"})
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">

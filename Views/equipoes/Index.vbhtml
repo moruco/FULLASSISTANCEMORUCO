@@ -31,7 +31,7 @@ End Code
                 @Html.DisplayNameFor(Function(model) model.baja)
             </th>
             <th>
-                @Html.DisplayNameFor(Function(model) model.fecha)
+                @*@Html.DisplayNameFor(Function(model) model.fecha)*@
             </th>
             <th></th>
         </tr>
@@ -48,14 +48,15 @@ End Code
                     @Html.DisplayFor(Function(modelItem) item.baja)
                 </td>
                 <td>
-                    @Html.DisplayFor(Function(modelItem) item.fecha)
+                    @*@Html.DisplayFor(Function(modelItem) item.fecha)*@
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", New With {.id = item.idequipo}, New With {.class = "btn btn-primary"})
+
                     @If item.baja Then
                     Else
                         ' @Html.ActionLink("Detalle", "Details", New With {.id = item.idequipo}, New With {.onclick = "showLoadingMessage();", .class = "btn btn-primary"})
 
+                        @Html.ActionLink("Editar", "Edit", New With {.id = item.idequipo}, New With {.class = "btn btn-primary"})
                         @Html.ActionLink("Detalle", "Details", New With {.id = item.idequipo, .descripcion = item.descripcion}, New With {.onclick = "showLoadingMessage();", .class = "btn btn-primary"})
 
 
