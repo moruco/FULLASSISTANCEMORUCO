@@ -14,7 +14,7 @@ Partial Public Class equipo
     Public Property idequipo As Integer
     Public Property idusuario As Nullable(Of Integer)
     Public Property descripcion As String
-    Public Property baja As Nullable(Of Boolean)
+    Public Property baja As Boolean
     Public Property fecha As Nullable(Of Date)
 
 End Class

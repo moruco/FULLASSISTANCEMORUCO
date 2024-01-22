@@ -1,6 +1,6 @@
 ﻿@ModelType FULLASSISTANCEMORUCO.DETALLEEQUIPO
 @Code
-    ViewData("Title") = "Details"
+    ViewData("Title") = "Detallew"
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
@@ -29,6 +29,9 @@ End Code
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", New With { .id = Model.Iddetalle }) |
+    @Html.ActionLink("Edit", "Edit", New With {.id = Model.Iddetalle}) |
     @Html.ActionLink("Back to List", "Index")
+
+
+
 </p>

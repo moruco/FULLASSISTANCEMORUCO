@@ -15,6 +15,13 @@ Namespace Controllers
         Private db As New FULLASSISTANCEEntities1
 
         ' GET: DETALLEEQUIPOes
+
+
+        Public Function Volver() As ActionResult
+            Return RedirectToAction("Index", "equipoes")
+
+        End Function
+
         Function Index() As ActionResult
             If TempData.ContainsKey("TempDetalleEquipo") Then
                 Dim TempDetalleEquipo As List(Of DETALLEEQUIPO) = TempData("TempDetalleEquipo")

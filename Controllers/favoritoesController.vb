@@ -16,6 +16,10 @@ Namespace Controllers
         Dim id As Integer
 
         ' GET: favoritoes
+        Public Function Volver() As ActionResult
+            Return RedirectToAction("Index", "usuarios")
+
+        End Function
         Function Index() As ActionResult
             If TempData.ContainsKey("idUsuario") Then
                 id = TempData("idUsuario")
@@ -30,6 +34,8 @@ Namespace Controllers
                     Return RedirectToAction("Index", "Pokemon")
                 End If
                 If listaFavorito.Count > 0 Then
+
+                    TempData("idUsuario") = id
                     TempData("TempdetalleFavorito") = listaFavorito
                     Return View(listaFavorito)
                 End If

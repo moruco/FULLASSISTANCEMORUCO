@@ -3,57 +3,97 @@
     ViewData("Title") = "Index"
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
+@Using (Html.BeginForm())
+    @Html.AntiForgeryToken()
+    @<div class="form-horizontal">
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.idusuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.baja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.fecha)
-        </th>
-        <th></th>
-    </tr>
 
-    @For Each item In Model
-        @<tr>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.idusuario)
-            </td>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.baja)
-            </td>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.fecha)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", New With {.id = item.idequipo}) |
+        <div id="loadingMessage" style="display:none">
+            Cargando...
+            <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Cargando..." width="100" height="100" />
+        </div>
 
-                @If item.baja Then
 
-                Else
+        <h2>Equipos </h2>
 
-                    @Html.ActionLink("Details", "Details", New With {.id = item.idequipo})
+        <p>
 
-                End If
+            <a href="@Url.Action("Create")" class="btn btn-primary">Nuevo</a>
 
-                @Html.ActionLink("Delete", "Delete", New With {.id = item.idequipo})
-            </td>
-        </tr>
-    Next
 
-</table>
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(Function(model) model.idusuario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Function(model) model.descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Function(model) model.baja)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Function(model) model.fecha)
+                </th>
+                <th></th>
+            </tr>
+
+            @For Each item In Model
+                @<tr>
+                    <td>
+                        @Html.DisplayFor(Function(modelItem) item.idusuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Function(modelItem) item.descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Function(modelItem) item.baja)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Function(modelItem) item.fecha)
+                    </td>
+                    <td>
+
+
+                        @Html.ActionLink("Edit", "Edit", New With {.id = item.idequipo}, New With {.class = "btn btn-primary"})  
+
+                        @If item.baja Then
+
+                        Else
+
+                            @Html.ActionLink("Detalle", "Details", New With {.id = item.idequipo}, New With {.onclick = "showLoadingMessage();", .class = "btn btn-primary"})
+
+                        End If
+
+
+                        @Html.ActionLink("Delete", "Delete", New With {.id = item.idequipo}, New With {.class = "btn btn-primary"})
+                    </td>
+                </tr>
+            Next
+
+        </table>
+
+    </div>
+
+
+End Using
+@section Scripts {
+    <script>
+        function showLoadingMessage() {
+            document.getElementById('loadingMessage').style.display = 'block';
+        }
+
+        // Puedes agregar un pequeño retraso para que el mensaje de carga sea visible antes de la navegación
+        // Aquí se utiliza setTimeout para ocultar el mensaje después de 2 segundos (2000 milisegundos)
+        function hideLoadingMessage() {
+            setTimeout(function () {
+                document.getElementById('loadingMessage').style.display = 'none';
+            }, 2000);
+        }
+    </script>
+
+
+
+end section

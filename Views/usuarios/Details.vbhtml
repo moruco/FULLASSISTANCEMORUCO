@@ -37,6 +37,6 @@ End Code
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", New With { .id = Model.idusuario }) |
+    @Html.ActionLink("Edit", "Edit", New With {.id = Model.idusuario}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

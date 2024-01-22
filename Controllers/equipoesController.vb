@@ -83,6 +83,9 @@ Namespace Controllers
         Function Create() As ActionResult
             Dim Equipo As New equipo()
             Equipo.idusuario = TempData("idUsuario")
+
+            TempData("idUsuario") = Equipo.idusuario
+
             ' aqui pasar el id del usuario y mostrar
             Return View(Equipo)
         End Function

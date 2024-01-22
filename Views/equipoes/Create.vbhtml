@@ -38,6 +38,23 @@ End Code
                 </div>
             </div>
         </div>
+        @*<div class="form-group">
+            @Html.LabelFor(Function(model) model.baja, htmlAttributes:=New With {.class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(Function(model) model.baja,
+                                                       New SelectList(New List(Of SelectListItem) From {
+                                                          New SelectListItem With {.Value = "False", .Text = "False"},
+                                                          New SelectListItem With {.Value = "True", .Text = "True"}
+                                                       }, "Value", "Text"),
+                                                       New With {.class = "form-control"})
+                @Html.ValidationMessageFor(Function(model) model.baja, "", New With {.class = "text-danger"})
+            </div>
+        </div>*@
+
+
+
+
+
 
         <div class="form-group">
             @Html.LabelFor(Function(model) model.fecha, htmlAttributes:=New With {.class = "control-label col-md-2"})
@@ -48,13 +65,15 @@ End Code
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </div>
     </div>
 End Using
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+
+
+    <a href="@Url.Action("Index")" class="btn btn-primary" style="margin-top: 10px;">Volver</a>
 </div>

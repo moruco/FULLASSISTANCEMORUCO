@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Details</h2>
+<h2>Detalle</h2>
 
 <div>
     <h4>favorito</h4>
@@ -37,6 +37,6 @@ End Code
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", New With { .id = Model.idfavorito }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", New With {.id = Model.idfavorito}) |
+    @Html.ActionLink("Volver", "Index")
 </p>

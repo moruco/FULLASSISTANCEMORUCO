@@ -6,7 +6,7 @@ End Code
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Esta seguro de eliminar?</h3>
 <div>
     <h4>usuario</h4>
     <hr />

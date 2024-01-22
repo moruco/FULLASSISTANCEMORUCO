@@ -8,6 +8,13 @@ End Code
 
 <p>
     @*@Html.ActionLink("Adicionar", "Create")*@
+
+
+    
+
+    <a href="@Url.Action("Volver")" class="btn btn-primary">Volver</a>
+
+
 </p>
 <table class="table">
     <tr>
@@ -77,9 +84,11 @@ End Code
         @Html.DisplayFor(Function(modelItem) item.velocidad)
     </td>
     <td>
-       @*@Html.ActionLink("Edit", "Edit", New With {.id = item.Iddetalle}) |*@
-        @Html.ActionLink("Agregar", "Add", New With {.id = item.Idequipo}) |
-        @Html.ActionLink("Quitar", "Delete", New With {.id = item.Iddetalle})
+   
+        @Html.ActionLink("Agregar", "Add", New With {.id = item.Idequipo}, New With {.class = "btn btn-primary"}) 
+        @Html.ActionLink("Quitar", "Delete", New With {.id = item.Iddetalle}, New With {.class = "btn btn-primary"})
+
+        
     </td>
 </tr>
 Next

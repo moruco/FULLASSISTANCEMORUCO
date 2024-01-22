@@ -4,9 +4,9 @@
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Delete</h2>
+<h2>Eliminar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Esta seguro de eliminar?</h3>
 <div>
     <h4>favorito</h4>
     <hr />
@@ -40,8 +40,8 @@ End Code
         @Html.AntiForgeryToken()
 
         @<div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
         </div>
     End Using
 </div>

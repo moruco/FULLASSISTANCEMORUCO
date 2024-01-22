@@ -6,7 +6,7 @@ End Code
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Esta seguro de eliminar?</h3>
 <div>
     <h4>equipo</h4>
     <hr />
@@ -48,7 +48,7 @@ End Code
         @Html.AntiForgeryToken()
 
         @<div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class= "btn btn-primary" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     End Using

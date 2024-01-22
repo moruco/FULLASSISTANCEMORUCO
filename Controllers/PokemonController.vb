@@ -91,84 +91,100 @@ Public Class PokemonController
 
     <HttpPost>
     Function Index(model As PokeApiResponse, selectedPokemons As String()) As ActionResult
-        If ModelState.IsValid Then
-            Dim detalleequipo As New DETALLEEQUIPO
-            'TempData("TempTipoPokemon") = "Favoritos"
-            If (TempData("TempTipoPokemon") = "Favoritos") Then
-                ' guardar favoritos
-                Dim Favorito As New favorito
-                For Each item In selectedPokemons
-                    'detalleequipo.Idequipo = equipo.idequipo
-                    Favorito.idusuario = TempData("idUsuario")
-                    Favorito.idpokemon = ExtraerId(item)
-                    Favorito.fecha = DateTime.Now
-                    db.favorito.Add(Favorito)
-                    db.SaveChanges()
-                Next
 
-                TempData("idUsuario") = Favorito.idusuario
-                Return RedirectToAction("Index", "Favoritoes")
-            Else
 
-                Dim equipo As New equipo
-                equipo.idusuario = TempData("idUsuario")
-                If TempData.ContainsKey("idEquipo") Then
-                    idEquipo = TempData("idEquipo")
-                End If
-                If idEquipo > 0 Then
 
-                Else
-                    'guarda un equipo nuevo 
-                    equipo.descripcion = "equipo malditango"
-                    equipo.baja = False
-                    equipo.fecha = DateTime.Now
-                    db.equipo.Add(equipo)
-                    db.SaveChanges()
-                    idEquipo = equipo.idequipo
-                End If
+        If selectedPokemons Is Nothing OrElse selectedPokemons.Length = 0 Then
+            ' No hay elementos en selectedPokemons
+            ' Puedes mostrar un mensaje, redirigir o realizar alguna otra acción
+            ViewBag.Message = "No se han seleccionado Pokémon."
+            TempData("idEquipo") = idEquipo
+            Return RedirectToAction("Index", "Pokemon")
+        Else            ' Hay elementos en selectedPokemons
+            If ModelState.IsValid Then
 
-                For Each item In selectedPokemons
-                    'detalleequipo.Idequipo = equipo.idequipo
-                    detalleequipo.Idequipo = idEquipo
-                    detalleequipo.idpokemon = ExtraerId(item)
-                    db.DETALLEEQUIPO.Add(detalleequipo)
-                    db.SaveChanges()
-                Next
 
-                TempData("idEquipo") = idEquipo
-                Dim ldetalleequipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = idEquipo).ToList()
-                If IsNothing(ldetalleequipo) OrElse ldetalleequipo.Count = 0 Then
-                    TempData("idEquipo") = idEquipo
-                    Return RedirectToAction("Index", "Pokemon")
-                End If
-                If ldetalleequipo.Count > 0 Then
-
-                    Dim tEquipo As New equipoesController()
-
-                    Dim pokemonCliente = New PokemonClient
-                    Dim resultadoPokemonApi As Pokemon
-                    ' pegar el codigo para mostrar los ataques del mapeo
-
-                    For Each detalleequipopokemon As DETALLEEQUIPO In ldetalleequipo
-                        resultadoPokemonApi = pokemonCliente.GetPokemo(detalleequipopokemon.idpokemon)
-                        detalleequipopokemon.nombre = resultadoPokemonApi.Nombre
-                        detalleequipopokemon.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
-                        'detalleequipopokemon.ataque = resultadoPokemonApi.Stats.
-                        detalleequipopokemon.ataque = GetBaseStatByName(resultadoPokemonApi, "attack")
-                        detalleequipopokemon.ataque_especial = GetBaseStatByName(resultadoPokemonApi, "special-attack")
-                        detalleequipopokemon.defensa = GetBaseStatByName(resultadoPokemonApi, "defense")
-                        detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
-                        detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
-                        detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
-                        ' llamar servicio  para trade datos de cada pokemon
+                Dim detalleequipo As New DETALLEEQUIPO
+                'TempData("TempTipoPokemon") = "Favoritos"
+                If (TempData("TempTipoPokemon") = "Favoritos") Then
+                    ' guardar favoritos
+                    Dim Favorito As New favorito
+                    For Each item In selectedPokemons
+                        'detalleequipo.Idequipo = equipo.idequipo
+                        Favorito.idusuario = TempData("idUsuario")
+                        Favorito.idpokemon = ExtraerId(item)
+                        Favorito.fecha = DateTime.Now
+                        db.favorito.Add(Favorito)
+                        db.SaveChanges()
                     Next
-                    ' muestra los pokemones que se guardaron 
-                    TempData("TempDetalleEquipo") = ldetalleequipo
-                    Return RedirectToAction("Index", "DETALLEEQUIPOes")
+
+                    TempData("idUsuario") = Favorito.idusuario
+                    Return RedirectToAction("Index", "Favoritoes")
+                Else
+
+                    Dim equipo As New equipo
+                    equipo.idusuario = TempData("idUsuario")
+                    If TempData.ContainsKey("idEquipo") Then
+                        idEquipo = TempData("idEquipo")
+                    End If
+                    If idEquipo > 0 Then
+
+                    Else
+                        'guarda un equipo nuevo 
+                        equipo.descripcion = "equipo malditango"
+                        equipo.baja = False
+                        equipo.fecha = DateTime.Now
+                        db.equipo.Add(equipo)
+                        db.SaveChanges()
+                        idEquipo = equipo.idequipo
+                    End If
+
+                    For Each item In selectedPokemons
+                        'detalleequipo.Idequipo = equipo.idequipo
+                        detalleequipo.Idequipo = idEquipo
+                        detalleequipo.idpokemon = ExtraerId(item)
+                        db.DETALLEEQUIPO.Add(detalleequipo)
+                        db.SaveChanges()
+                    Next
+
+                    TempData("idEquipo") = idEquipo
+                    Dim ldetalleequipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = idEquipo).ToList()
+                    If IsNothing(ldetalleequipo) OrElse ldetalleequipo.Count = 0 Then
+                        TempData("idEquipo") = idEquipo
+                        Return RedirectToAction("Index", "Pokemon")
+                    End If
+                    If ldetalleequipo.Count > 0 Then
+
+                        Dim tEquipo As New equipoesController()
+
+                        Dim pokemonCliente = New PokemonClient
+                        Dim resultadoPokemonApi As Pokemon
+                        ' pegar el codigo para mostrar los ataques del mapeo
+
+                        For Each detalleequipopokemon As DETALLEEQUIPO In ldetalleequipo
+                            resultadoPokemonApi = pokemonCliente.GetPokemo(detalleequipopokemon.idpokemon)
+                            detalleequipopokemon.nombre = resultadoPokemonApi.Nombre
+                            detalleequipopokemon.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
+                            'detalleequipopokemon.ataque = resultadoPokemonApi.Stats.
+                            detalleequipopokemon.ataque = GetBaseStatByName(resultadoPokemonApi, "attack")
+                            detalleequipopokemon.ataque_especial = GetBaseStatByName(resultadoPokemonApi, "special-attack")
+                            detalleequipopokemon.defensa = GetBaseStatByName(resultadoPokemonApi, "defense")
+                            detalleequipopokemon.defensa_especial = GetBaseStatByName(resultadoPokemonApi, "special-defense")
+                            detalleequipopokemon.puntovida = GetBaseStatByName(resultadoPokemonApi, "hp")
+                            detalleequipopokemon.velocidad = GetBaseStatByName(resultadoPokemonApi, "speed")
+                            ' llamar servicio  para trade datos de cada pokemon
+                        Next
+                        ' muestra los pokemones que se guardaron 
+                        TempData("TempDetalleEquipo") = ldetalleequipo
+                        Return RedirectToAction("Index", "DETALLEEQUIPOes")
+                    End If
+                    '  Return RedirectToAction("Index", "equipoes")
                 End If
-                '  Return RedirectToAction("Index", "equipoes")
             End If
+
         End If
+
+
 
     End Function
     Function GetBaseStatByName(pokemon As Pokemon, statName As String) As Integer

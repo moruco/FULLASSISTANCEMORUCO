@@ -50,13 +50,22 @@ End Code
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </div>
     </div>
 End Using
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+
+
+
+
+
+    <a href="@Url.Action("Index")" class="btn btn-primary" style="margin-top: 10px;">Volver</a>
+
+
+
+
 </div>
