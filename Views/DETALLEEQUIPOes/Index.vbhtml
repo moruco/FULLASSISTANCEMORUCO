@@ -4,11 +4,15 @@
     Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Detalle del equipo Pokemon</h2>
+@*<h2>Detalle del equipo Pokemon arriba </h2>*@
+
+<h1>
+    <label>Detalle del equipo @TempData("descripcionequipo")</label>
+</h1>
 
 <p>
     @*@Html.ActionLink("Adicionar", "Create")*@
-
+    @Html.ActionLink("Agregar", "Add", New With {.id = Model.FirstOrDefault.Idequipo}, New With {.class = "btn btn-primary"})
 
 
 
@@ -87,8 +91,6 @@ End Code
 
     @For Each item In Model
         @<tr>
-
-
             <td>
                 @Html.DisplayFor(Function(modelItem) item.Idequipo)
             </td>
@@ -124,11 +126,8 @@ End Code
                 @Html.DisplayFor(Function(modelItem) item.velocidad)
             </td>
             <td>
-
-                @Html.ActionLink("Agregar", "Add", New With {.id = item.Idequipo}, New With {.class = "btn btn-primary"})
+                @*@Html.ActionLink("Agregar", "Add", New With {.id = item.Idequipo}, New With {.class = "btn btn-primary"})*@
                 @Html.ActionLink("Quitar", "Delete", New With {.id = item.Iddetalle}, New With {.class = "btn btn-primary"})
-
-
             </td>
         </tr>
     Next

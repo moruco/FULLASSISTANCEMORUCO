@@ -5,17 +5,14 @@
 End Code
 
 <h2>Favoritos</h2>
-
 <p>
     @*@Html.ActionLink("Nuevo", "Create", New With {.class = "btn btn-primary"})*@
-    <a href="@Url.Action("Create")" class="btn btn-primary">Nuevo</a>
+    <a href="@Url.Action("Create")" class="btn btn-primary">Agregar</a>
     <a href="@Url.Action("Volver")" class="btn btn-primary">Volver</a>
 </p>
 <table class="table">
-   
+
     <tr>
-
-
         <th>
             Id Pokemon
             @*@Html.DisplayNameFor(Function(model) model.idpokemon)*@
@@ -57,7 +54,7 @@ End Code
         </th>
         <th></th>
     </tr>
-    
+
 
     @For Each item In Model
         @<tr>
@@ -109,8 +106,6 @@ End Code
             <td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", New With {.id = item.idfavorito }) |*@
-
-
                 @*@Html.ActionLink("Detalle", "Details", New With {.id = item.idfavorito}, New With {.class = "btn btn-primary"})*@
                 @Html.ActionLink("Eliminar", "Delete", New With {.id = item.idfavorito}, New With {.class = "btn btn-primary"})
             </td>

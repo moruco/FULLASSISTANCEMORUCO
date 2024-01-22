@@ -48,8 +48,9 @@ End Code
         @Html.AntiForgeryToken()
 
         @<div class="form-actions no-color">
-            <input type="submit" value="Delete" class= "btn btn-primary" /> |
-            @Html.ActionLink("Volver", "Index")
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            <a href="@Url.Action("VolverEquipo")" class="btn btn-primary">Volver</a>
+            @*@Html.ActionLink("Volver", "Index")*@
         </div>
     End Using
 </div>

@@ -7,7 +7,9 @@
     Dim totalPages = Math.Ceiling(Model.Count / pageSize)
 End Code
 
-<h1>Seleccionar Pokemones </h1>
+
+
+
 @Using (Html.BeginForm(FormMethod.Post))
     @<div class="form-actions no-color">
 
@@ -62,7 +64,7 @@ End Code
             End Code
         </ul>
     </div>
-End Using
+                End Using
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 @section Scripts {

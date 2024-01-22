@@ -18,10 +18,16 @@ Namespace Controllers
         Public Function Volver() As ActionResult
             Return RedirectToAction("Index", "usuarios")
         End Function
+        Public Function VolverEquipo() As ActionResult
+            Return RedirectToAction("Index", "equipoes")
+        End Function
 
         ' GET: equipoes/Details/5
-        Function Details(ByVal id As Integer?) As ActionResult
+        Function Details(ByVal id As Integer?, ByVal descripcion As String) As ActionResult
+
             TempData("idEquipo") = id
+            TempData("descripcionequipo") = descripcion
+
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
@@ -50,80 +56,50 @@ Namespace Controllers
             If detalleEquipo.Count > 0 Then
                 ' If no records are found, redirect to another controller's action
                 TempData("TempDetalleEquipo") = detalleEquipo
-
                 Return RedirectToAction("Index", "DETALLEEQUIPOes")
             End If
-
-
         End Function
 
-
-        'Dim attackBaseStat As Integer = GetBaseStatByName(Pokemon, "attack")
-
-        ' Hacer ESPA:OL INMDIO
         Function GetBaseStatByName(pokemon As Pokemon, statName As String) As Integer
-            ' Convert the stat name to lowercase for case-insensitive comparison
             Dim targetStatName As String = statName.ToLower()
-
-            ' Loop through each stat in the Pokemon's stats
             For Each stat In pokemon.Stats
-                ' Convert the current stat name to lowercase for case-insensitive comparison
                 Dim currentStatName As String = stat.StatInfo.Name.ToLower()
-
-                ' Check if the current stat name matches the target stat name
                 If currentStatName = targetStatName Then
-                    ' Return the base stat if a match is found
                     Return stat.BaseStat
                 End If
             Next
-
-            ' If no match is found, return a default value
             Return 0
         End Function
-
 
         ' GET: equipoes/Create
         Function Create() As ActionResult
             Dim Equipo As New equipo()
             Equipo.idusuario = TempData("idUsuario")
-
             TempData("idUsuario") = Equipo.idusuario
-
             ' aqui pasar el id del usuario y mostrar
             Return View(Equipo)
         End Function
         ' GET: equipoes
         Function Index() As ActionResult
-
             If TempData.ContainsKey("idusuario") Then
                 Dim iidusuario As Integer = TempData("idUsuario")
                 Dim Etquipo As List(Of equipo) = db.equipo.Where(Function(f) f.idusuario = iidusuario).ToList()
                 TempData("idUsuario") = iidusuario
-
                 Return View(Etquipo)
             Else
                 Return View(Me)
             End If
-
         End Function
 
-
-
-
         ' POST: equipoes/Create
-        'Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        'más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         Function Create(<Bind(Include:="idequipo,idusuario,descripcion,baja,fecha")> ByVal equipo As equipo) As ActionResult
             If ModelState.IsValid Then
                 db.equipo.Add(equipo)
                 db.SaveChanges()
-
                 TempData("idequipo") = equipo.idequipo
-
                 Return RedirectToAction("Index", "Pokemon")
-
                 'Return RedirectToAction("Index")
             End If
             Return View(equipo)
@@ -177,7 +153,6 @@ Namespace Controllers
             db.SaveChanges()
             Return RedirectToAction("Index")
         End Function
-
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)
             If (disposing) Then
                 db.Dispose()

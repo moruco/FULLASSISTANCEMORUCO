@@ -8,7 +8,6 @@ Imports System.Web
 Imports System.Web.Mvc
 Imports FULLASSISTANCEMORUCO
 Imports FULLASSISTANCEMORUCO.Controllers
-
 Public Class PokemonController
     Inherits System.Web.Mvc.Controller
     Dim idEquipo As Integer
@@ -26,7 +25,6 @@ Public Class PokemonController
             'traer alista de favoritos para selecionar  los registros 
             Dim listaFavorito = TempData("TempdetalleFavorito")
             Dim resultadoPokemonApi = pokemonCliente.GetPokemonList(listaPokemonInicio, pageSize)
-
             If IsNothing(listaFavorito) OrElse listaFavorito.Count = 0 Then
             Else
                 ' crear lista para borrar los indices 
@@ -35,9 +33,6 @@ Public Class PokemonController
                     Dim itemREsul As Results = resultadoPokemonApi.Results(i)
                     For Each itemFavorito As favorito In listaFavorito
                         If itemFavorito.idpokemon.ToString().Equals(ExtraerId(itemREsul.Url)) Then
-
-
-
 
                             ' Mark the index to be removed
                             indicesToRemove.Add(i)
@@ -51,6 +46,14 @@ Public Class PokemonController
                     resultadoPokemonApi.Results.RemoveAt(indice)
                 Next
             End If
+
+            For i = 0 To resultadoPokemonApi.Results.Count - 1
+                '  poner imagen para escoger los pokemones del servicio
+                Dim itemREsul As Results = resultadoPokemonApi.Results(i)
+                Dim resultadoPokemonApiResult = pokemonCliente.GetPokemo(ExtraerId(itemREsul.Url))
+                itemREsul.imagen = resultadoPokemonApiResult.SpritesData.BackDefault
+            Next
+
             Return View(resultadoPokemonApi)
             ' mostrar pokemones favoritos
         Else
@@ -75,7 +78,6 @@ Public Class PokemonController
                             'Dim tEquipo As New equipoesController()
                             'Dim pokemonCliente = New PokemonClient
                             'Dim resultadoPokemonApi As Pokemon
-
                             'detalleequipopokemon.nombre = resultadoPokemonApi.Nombre
                             'detalleequipopokemon.tipo = resultadoPokemonApi.Types.FirstOrDefault().Type.Name
                             ''detalleequipopokemon.ataque = resultadoPokemonApi.Stats.
@@ -103,22 +105,14 @@ Public Class PokemonController
                 For Each indice In indicesToRemove
                     resultadoPokemonApi.Results.RemoveAt(indice)
                 Next
-
-                'For i = 0 To resultadoPokemonApi.Results.Count - 1
-                '    Dim itemREsul As Results = resultadoPokemonApi.Results(i)
-                '    For Each itemDetalleEquipo As DETALLEEQUIPO In det
-                '        ' traer la imagen 
-                '    Next
-                'Next
-
             End If
 
             For i = 0 To resultadoPokemonApi.Results.Count - 1
+                '  poner imagen para escoger los pokemones del servicio
                 Dim itemREsul As Results = resultadoPokemonApi.Results(i)
                 Dim resultadoPokemonApiResult = pokemonCliente.GetPokemo(ExtraerId(itemREsul.Url))
                 itemREsul.imagen = resultadoPokemonApiResult.SpritesData.BackDefault
             Next
-
             Return View(resultadoPokemonApi)
             ' Return View(pokemonCliente.GetPokemonList(0, 20))
         End If
@@ -217,7 +211,6 @@ Public Class PokemonController
     Function GetBaseStatByName(pokemon As Pokemon, statName As String) As Integer
         Dim targetStatName As String = statName.ToLower()
         For Each stat In pokemon.Stats
-
             Dim currentStatName As String = stat.StatInfo.Name.ToLower()
             If currentStatName = targetStatName Then
                 Return stat.BaseStat

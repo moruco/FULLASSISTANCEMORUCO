@@ -11,11 +11,12 @@ Imports FULLASSISTANCEMORUCO
 Namespace Controllers
     Public Class DETALLEEQUIPOesController
         Inherits System.Web.Mvc.Controller
-
         Private db As New FULLASSISTANCEEntities1
-
         ' GET: DETALLEEQUIPOes
-
+        Public Function adicionarnuevo() As ActionResult
+            'TempData("idEquipo") = id
+            Return RedirectToAction("Index", "equipoes")
+        End Function
 
         Public Function Volver() As ActionResult
             Return RedirectToAction("Index", "equipoes")
@@ -25,9 +26,7 @@ Namespace Controllers
         Function Index() As ActionResult
             If TempData.ContainsKey("TempDetalleEquipo") Then
                 Dim TempDetalleEquipo As List(Of DETALLEEQUIPO) = TempData("TempDetalleEquipo")
-
                 ' DETALLEEQUIPO = TempData("TempDetalleEquipo")
-
                 Return View(TempDetalleEquipo)
             Else
                 Return View(db.DETALLEEQUIPO.ToList())
@@ -59,9 +58,7 @@ Namespace Controllers
 
         ' GET: DETALLEEQUIPOes/Create
         Function Create() As ActionResult
-
             Return View()
-
         End Function
 
         Function Add(ByVal id As Integer?) As ActionResult
@@ -137,10 +134,7 @@ Namespace Controllers
             db.DETALLEEQUIPO.Remove(dETALLEEQUIPO)
             db.SaveChanges()
 
-
             id = TempData("idEquipo")
-
-
             'Dim detaequipo As DETALLEEQUIPO = db.DETALLEEQUIPO.Select Of(Function(e) e.Idequipo = id)
             Dim detalleEquipoa As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = id).ToList()
             'llarmar api para cargar prop adicionales 
@@ -157,16 +151,10 @@ Namespace Controllers
                 detalleequipopokemon.defensa_especial = Getvalor(resultadoPokemonApi, "special-defense")
                 detalleequipopokemon.puntovida = Getvalor(resultadoPokemonApi, "hp")
                 detalleequipopokemon.velocidad = Getvalor(resultadoPokemonApi, "speed")
-
                 detalleequipopokemon.imagen = resultadoPokemonApi.SpritesData.BackDefault
-
                 ' llamar servicio  para trade datos de cada pokemon
             Next
-
             ' llenar los atackes  y defensas
-
-
-
 
             TempData("TempDetalleEquipo") = detalleEquipoa
             Return RedirectToAction("Index")
