@@ -56,6 +56,7 @@ Namespace Controllers
             If detalleEquipo.Count > 0 Then
                 ' If no records are found, redirect to another controller's action
                 TempData("TempDetalleEquipo") = detalleEquipo
+                TempData("descripcionequipo") = descripcion
                 Return RedirectToAction("Index", "DETALLEEQUIPOes")
             End If
         End Function

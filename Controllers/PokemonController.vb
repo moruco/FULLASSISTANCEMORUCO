@@ -63,6 +63,8 @@ Public Class PokemonController
             End If
             ' quitar los de la base de datos del servicio
             TempData("idEquipo") = idEquipo
+
+
             Dim det = TempData("TempDetalleEquipo")
             Dim resultadoPokemonApi = pokemonCliente.GetPokemonList(listaPokemonInicio, pageSize)
 

@@ -6,6 +6,7 @@ Imports System.Linq
 Imports System.Net
 Imports System.Web
 Imports System.Web.Mvc
+Imports System.Web.Services
 Imports FULLASSISTANCEMORUCO
 
 Namespace Controllers
@@ -65,7 +66,7 @@ Namespace Controllers
 
             ' adicionar nuevos pokemon al detalle
             TempData("idEquipo") = id
-
+            '  TempData("descripcionequipo") = descripcion
 
             Dim detalleEquipo As List(Of DETALLEEQUIPO) = db.DETALLEEQUIPO.Where(Function(e) e.Idequipo = id).ToList()
             TempData("TempDetalleEquipo") = detalleEquipo

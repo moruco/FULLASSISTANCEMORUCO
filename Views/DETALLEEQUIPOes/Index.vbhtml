@@ -14,36 +14,42 @@ End Code
     @*@Html.ActionLink("Adicionar", "Create")*@
     @Html.ActionLink("Agregar", "Add", New With {.id = Model.FirstOrDefault.Idequipo}, New With {.class = "btn btn-primary"})
 
+   @* @Html.ActionLink("Agregaraaaa", "Add", New With {.id = Model.FirstOrDefault.Idequipo, .descripcion =  @TempData("descripcionequipo"}, New With {.class = "btn btn-primary"})*@
+
+    @*moruco*@
 
 
-    <a href="@Url.Action("Volver")" class="btn btn-primary">Volver</a>
+
+
+
+    <a href = "@Url.Action("Volver")" Class="btn btn-primary">Volver</a>
     <h3>Habilidades del Equipo</h3>
 
-    <div class="summary-box">
+    <div Class="summary-box">
         <div>
-            <label>Ataque Total: </label>
-            <span id="ataqueTotal">@Model.Sum(Function(item) item.ataque)</span>
+        <Label> Ataque Total: </label>
+            <span id = "ataqueTotal" >@Model.Sum(Function(item) item.ataque)</span>
         </div>
         <div>
-            <label>Ataque Especial Total: </label>
-            <span id="ataqueEspecialTotal">@Model.Sum(Function(item) item.ataque_especial)</span>
+        <Label> Ataque Especial Total: </label>
+            <span id = "ataqueEspecialTotal" >@Model.Sum(Function(item) item.ataque_especial)</span>
         </div>
         <div>
-            <label>Defensa Total: </label>
-            <span id="defensaTotal">@Model.Sum(Function(item) item.defensa)</span>
+        <Label> Defensa Total: </label>
+            <span id = "defensaTotal" >@Model.Sum(Function(item) item.defensa)</span>
         </div>
         <div>
-            <label>Defensa Especial Total: </label>
-            <span id="defensaEspecialTotal">@Model.Sum(Function(item) item.defensa_especial)</span>
+        <Label> Defensa Especial Total: </label>
+            <span id = "defensaEspecialTotal" >@Model.Sum(Function(item) item.defensa_especial)</span>
         </div>
     </div>
 
 </p>
-<h3>Pokemones del Equipo</h3>
-<table class="table">
+<h3> Pokemones del Equipo</h3>
+<Table Class="table">
     <tr>
 
-        <th>
+            <th>
             Id Equipo
             @*@Html.DisplayNameFor(Function(model) model.Idequipo)*@
         </th>
@@ -101,7 +107,7 @@ End Code
                 @Html.DisplayFor(Function(modelItem) item.nombre)
             </td>
             <td>
-                <img src="@Html.DisplayFor(Function(modelItem) item.imagen)" alt="Imagen del Pokémon" />
+            <img src = "@Html.DisplayFor(Function(modelItem) item.imagen)" alt="Imagen del Pokémon" />
             </td>
             <td>
                 @Html.DisplayFor(Function(modelItem) item.ataque)
@@ -134,7 +140,7 @@ End Code
 
 </table>
 
-<style>
+<Style>
     .summary-box {
         border: 1px solid #ddd;
         padding: 10px;
